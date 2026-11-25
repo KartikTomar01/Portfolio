@@ -1,0 +1,1374 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kartik Tomar | B.Tech CS Student &amp; Developer</title>
+  <meta name="description" content="Personal portfolio of Kartik Tomar — B.Tech Computer Science student, C++ & Python programmer, Web Developer, and Data Science enthusiast from Meerut, UP." />
+
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Tailwind Configuration for Dark Mode, Fonts & Custom Animations -->
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            obsidian: '#090d16',
+            slatecard: '#111827',
+            cyanaccent: '#06b6d4',
+            indigoaccent: '#6366f1',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-10px)' },
+            },
+            blink: {
+              '0%, 100%': { opacity: '1' },
+              '50%': { opacity: '0' },
+            },
+            pulseGlow: {
+              '0%, 100%': { opacity: '0.55', transform: 'scale(1)' },
+              '50%': { opacity: '0.85', transform: 'scale(1.04)' },
+            }
+          },
+          animation: {
+            float: 'float 5s ease-in-out infinite',
+            blink: 'blink 1s step-end infinite',
+            pulseGlow: 'pulseGlow 4s ease-in-out infinite',
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- Lucide Icons via CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body class="bg-slate-50 text-slate-900 dark:bg-obsidian dark:text-slate-100 font-sans antialiased selection:bg-cyan-500/30 selection:text-cyan-200 overflow-x-hidden transition-colors duration-300">
+
+  <!-- Animated Constellation Particle Canvas Background -->
+  <canvas id="bg-canvas" class="fixed inset-0 w-full h-full pointer-events-none z-0 opacity-70 dark:opacity-90"></canvas>
+
+  <!-- Desktop Interactive Glowing Cursor Spotlight -->
+  <div id="cursor-spotlight" class="hidden lg:block fixed w-96 h-96 rounded-full pointer-events-none z-0 -translate-x-1/2 -translate-y-1/2 bg-gradient-to-r from-cyan-500/10 to-indigo-500/10 dark:from-cyan-500/15 dark:to-indigo-500/15 blur-3xl transition-opacity duration-300 opacity-0"></div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none max-w-xs w-full sm:w-auto"></div>
+
+  <!-- =========================================================
+       STICKY GLASSMORPHIC NAVIGATION BAR
+  ========================================================== -->
+  <header id="navbar" class="fixed top-0 inset-x-0 z-40 transition-all duration-300">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-3">
+      <nav class="flex items-center justify-between px-4 sm:px-6 py-3 rounded-2xl bg-white/80 dark:bg-slate-900/75 backdrop-blur-xl border border-slate-200/80 dark:border-slate-800/80 shadow-lg shadow-slate-900/5 dark:shadow-black/30">
+        <!-- Brand Logo -->
+        <a href="#home" class="flex items-center gap-2.5 group focus:outline-none">
+          <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-cyan-500 to-indigo-600 flex items-center justify-center text-white font-bold text-sm shadow-md shadow-cyan-500/25 group-hover:scale-105 transition-transform">
+            KT
+          </div>
+          <div class="leading-tight">
+            <span class="block font-bold text-sm sm:text-base tracking-tight text-slate-900 dark:text-white">Kartik Tomar</span>
+            <span class="block text-[11px] font-mono text-cyan-600 dark:text-cyan-400">portfolio.dev</span>
+          </div>
+        </a>
+
+        <!-- Desktop Navigation Links -->
+        <div class="hidden md:flex items-center gap-1">
+          <a href="#home" data-nav="home" class="nav-link px-3.5 py-2 rounded-xl text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-slate-100/80 dark:hover:bg-slate-800/60 transition-all">Home</a>
+          <a href="#terminal" data-nav="terminal" class="nav-link px-3.5 py-2 rounded-xl text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-slate-100/80 dark:hover:bg-slate-800/60 transition-all">Terminal</a>
+          <a href="#skills" data-nav="skills" class="nav-link px-3.5 py-2 rounded-xl text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-slate-100/80 dark:hover:bg-slate-800/60 transition-all">Skills</a>
+          <a href="#projects" data-nav="projects" class="nav-link px-3.5 py-2 rounded-xl text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-slate-100/80 dark:hover:bg-slate-800/60 transition-all">Projects</a>
+          <a href="#education" data-nav="education" class="nav-link px-3.5 py-2 rounded-xl text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-slate-100/80 dark:hover:bg-slate-800/60 transition-all">Education</a>
+          <a href="#certifications" data-nav="certifications" class="nav-link px-3.5 py-2 rounded-xl text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-slate-100/80 dark:hover:bg-slate-800/60 transition-all">Awards</a>
+          <a href="#contact" data-nav="contact" class="nav-link px-3.5 py-2 rounded-xl text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-slate-100/80 dark:hover:bg-slate-800/60 transition-all">Contact</a>
+        </div>
+
+        <!-- Right Controls: Theme Toggle & Mobile Menu Button -->
+        <div class="flex items-center gap-2">
+          <button id="theme-toggle" type="button" aria-label="Toggle Dark and Light Mode" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800/90 text-slate-700 dark:text-cyan-400 hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 transition-all">
+            <i id="theme-icon-sun" data-lucide="sun" class="w-4 h-4 hidden dark:block"></i>
+            <i id="theme-icon-moon" data-lucide="moon" class="w-4 h-4 block dark:hidden"></i>
+          </button>
+
+          <button id="mobile-menu-btn" type="button" aria-label="Open Navigation Menu" class="md:hidden p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800/90 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 transition-all">
+            <i id="menu-icon-open" data-lucide="menu" class="w-5 h-5 block"></i>
+            <i id="menu-icon-close" data-lucide="x" class="w-5 h-5 hidden"></i>
+          </button>
+        </div>
+      </nav>
+
+      <!-- Mobile Dropdown Menu -->
+      <div id="mobile-menu" class="hidden md:hidden mt-2 p-3 rounded-2xl bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border border-slate-200 dark:border-slate-800 shadow-2xl">
+        <div class="flex flex-col gap-1">
+          <a href="#home" class="mobile-nav-link px-4 py-3 rounded-xl text-sm font-medium text-slate-700 dark:text-slate-200 hover:bg-cyan-500/10 hover:text-cyan-500 transition-colors">Home</a>
+          <a href="#terminal" class="mobile-nav-link px-4 py-3 rounded-xl text-sm font-medium text-slate-700 dark:text-slate-200 hover:bg-cyan-500/10 hover:text-cyan-500 transition-colors">Interactive Terminal</a>
+          <a href="#skills" class="mobile-nav-link px-4 py-3 rounded-xl text-sm font-medium text-slate-700 dark:text-slate-200 hover:bg-cyan-500/10 hover:text-cyan-500 transition-colors">Technical Skills</a>
+          <a href="#projects" class="mobile-nav-link px-4 py-3 rounded-xl text-sm font-medium text-slate-700 dark:text-slate-200 hover:bg-cyan-500/10 hover:text-cyan-500 transition-colors">Projects</a>
+          <a href="#education" class="mobile-nav-link px-4 py-3 rounded-xl text-sm font-medium text-slate-700 dark:text-slate-200 hover:bg-cyan-500/10 hover:text-cyan-500 transition-colors">Education Timeline</a>
+          <a href="#certifications" class="mobile-nav-link px-4 py-3 rounded-xl text-sm font-medium text-slate-700 dark:text-slate-200 hover:bg-cyan-500/10 hover:text-cyan-500 transition-colors">Certifications &amp; Awards</a>
+          <a href="#contact" class="mobile-nav-link px-4 py-3 rounded-xl text-sm font-medium text-slate-700 dark:text-slate-200 hover:bg-cyan-500/10 hover:text-cyan-500 transition-colors">Contact Me</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT WRAPPER -->
+  <main class="relative z-10">
+
+    <!-- =========================================================
+         1. HERO SECTION
+    ========================================================== -->
+    <section id="home" class="min-h-screen flex items-center pt-28 pb-16 sm:pt-32 sm:pb-20 px-4 sm:px-6 lg:px-8">
+      <div class="max-w-6xl mx-auto w-full">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
+
+          <!-- Left Column: Intro, Typewriter, Bio, CTAs -->
+          <div class="lg:col-span-7 space-y-6 text-center lg:text-left reveal opacity-0 translate-y-6 transition-all duration-700">
+            <!-- Status Badge -->
+            <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-cyan-500/10 dark:bg-cyan-500/10 border border-cyan-500/30 text-cyan-700 dark:text-cyan-300 text-xs sm:text-sm font-medium shadow-sm">
+              <span class="relative flex h-2.5 w-2.5">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-cyan-500"></span>
+              </span>
+              <span>Open to Internships &amp; Tech Roles &bull; Meerut, UP</span>
+            </div>
+
+            <!-- Main Heading -->
+            <div class="space-y-3">
+              <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-tight">
+                Hi, I'm
+                <span class="bg-gradient-to-r from-cyan-500 via-sky-400 to-indigo-500 bg-clip-text text-transparent">
+                  Kartik Tomar
+                </span>
+              </h1>
+
+              <!-- Animated Typewriter Subtitle -->
+              <div class="flex items-center justify-center lg:justify-start gap-2 text-lg sm:text-2xl font-mono font-semibold text-slate-700 dark:text-slate-300 min-h-[2rem]">
+                <span class="text-cyan-500">&gt;</span>
+                <span id="typewriter-text" class="text-indigo-600 dark:text-cyan-400"></span>
+                <span class="inline-block w-0.5 h-6 bg-cyan-500 animate-blink"></span>
+              </div>
+            </div>
+
+            <!-- Short Bio -->
+            <p class="text-base sm:text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+              Motivated B.Tech Computer Science student proficient in <span class="text-slate-900 dark:text-slate-200 font-medium">C, C++, Java, and Python</span>. Passionate about web development and data-driven problem solving, building clean interfaces and intelligent systems.
+            </p>
+
+            <!-- CTA Buttons -->
+            <div class="flex flex-wrap items-center justify-center lg:justify-start gap-3 pt-2">
+              <a href="#projects" class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-sm sm:text-base text-white bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 shadow-lg shadow-cyan-500/25 hover:shadow-cyan-500/40 hover:-translate-y-0.5 transition-all">
+                <span>Explore Projects</span>
+                <i data-lucide="arrow-right" class="w-4 h-4"></i>
+              </a>
+
+              <a href="#contact" class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-sm sm:text-base text-slate-800 dark:text-white bg-white dark:bg-slate-800/80 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm hover:-translate-y-0.5 transition-all">
+                <i data-lucide="mail" class="w-4 h-4 text-cyan-500"></i>
+                <span>Contact Me</span>
+              </a>
+
+              <button id="hero-copy-email" type="button" class="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl font-medium text-sm sm:text-base text-slate-700 dark:text-slate-300 bg-slate-100/80 dark:bg-slate-900/80 hover:bg-slate-200 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800 transition-all">
+                <i data-lucide="copy" class="w-4 h-4 text-indigo-500 dark:text-indigo-400"></i>
+                <span>Copy Email</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Right Column: Glowing Profile Photo Card -->
+          <div class="lg:col-span-5 flex justify-center reveal opacity-0 translate-y-6 transition-all duration-700 delay-150">
+            <div class="relative w-64 h-64 sm:w-80 sm:h-80 animate-float">
+              <!-- Animated Outer Neon Aura -->
+              <div class="absolute -inset-2 rounded-3xl bg-gradient-to-tr from-cyan-500 via-sky-500 to-indigo-600 opacity-60 blur-xl animate-pulseGlow"></div>
+
+              <!-- Gradient Border Frame -->
+              <div class="relative w-full h-full p-1 rounded-3xl bg-gradient-to-tr from-cyan-400 via-indigo-500 to-purple-500 shadow-2xl">
+                <div class="w-full h-full rounded-[22px] overflow-hidden bg-slate-900 relative">
+                  <!-- Uploaded Profile Photo (Place IMG_0165.jpeg in the same folder when deploying live) -->
+                  <img
+                    src="IMG_0165.jpeg"
+                    alt="Kartik Tomar — Formal Headshot"
+                    class="w-full h-full object-cover object-top transition-transform duration-500 hover:scale-105"
+                    onerror="this.onerror=null; this.src='https://placehold.co/500x500/0f172a/06b6d4?text=Kartik+Tomar';"
+                  />
+                  <!-- Subtle Bottom Gradient Overlay -->
+                  <div class="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-obsidian/80 via-obsidian/20 to-transparent pointer-events-none"></div>
+                  <div class="absolute bottom-3 left-3 right-3 flex items-center justify-between px-3 py-1.5 rounded-xl bg-slate-950/75 backdrop-blur-md border border-white/10">
+                    <span class="text-xs font-mono text-cyan-300 flex items-center gap-1.5">
+                      <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                      B.Tech CSE '27
+                    </span>
+                    <span class="text-[11px] font-medium text-slate-300">AKTU</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Quick Highlights Strip -->
+        <div class="mt-14 sm:mt-16 grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 reveal opacity-0 translate-y-6 transition-all duration-700 delay-200">
+          <div class="p-4 rounded-2xl bg-white/80 dark:bg-slate-900/60 backdrop-blur-md border border-slate-200/80 dark:border-slate-800/80 flex items-center gap-3 hover:border-cyan-500/50 transition-colors">
+            <div class="p-2.5 rounded-xl bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 shrink-0">
+              <i data-lucide="graduation-cap" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <p class="text-xs text-slate-500 dark:text-slate-400">Degree</p>
+              <p class="text-sm font-bold text-slate-900 dark:text-white">B.Tech CSE (2027)</p>
+            </div>
+          </div>
+
+          <div class="p-4 rounded-2xl bg-white/80 dark:bg-slate-900/60 backdrop-blur-md border border-slate-200/80 dark:border-slate-800/80 flex items-center gap-3 hover:border-indigo-500/50 transition-colors">
+            <div class="p-2.5 rounded-xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 shrink-0">
+              <i data-lucide="trophy" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <p class="text-xs text-slate-500 dark:text-slate-400">Hackathon</p>
+              <p class="text-sm font-bold text-slate-900 dark:text-white">Yukti NIR '25 Semi-Finalist</p>
+            </div>
+          </div>
+
+          <div class="p-4 rounded-2xl bg-white/80 dark:bg-slate-900/60 backdrop-blur-md border border-slate-200/80 dark:border-slate-800/80 flex items-center gap-3 hover:border-cyan-500/50 transition-colors">
+            <div class="p-2.5 rounded-xl bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 shrink-0">
+              <i data-lucide="award" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <p class="text-xs text-slate-500 dark:text-slate-400">Credential</p>
+              <p class="text-sm font-bold text-slate-900 dark:text-white">IIT Kanpur Certified</p>
+            </div>
+          </div>
+
+          <div class="p-4 rounded-2xl bg-white/80 dark:bg-slate-900/60 backdrop-blur-md border border-slate-200/80 dark:border-slate-800/80 flex items-center gap-3 hover:border-indigo-500/50 transition-colors">
+            <div class="p-2.5 rounded-xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 shrink-0">
+              <i data-lucide="code-2" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <p class="text-xs text-slate-500 dark:text-slate-400">Web Diploma</p>
+              <p class="text-sm font-bold text-slate-900 dark:text-white">DWD Grade A+</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         2. INTERACTIVE DEVELOPER TERMINAL
+    ========================================================== -->
+    <section id="terminal" class="py-16 sm:py-24 px-4 sm:px-6 lg:px-8">
+      <div class="max-w-4xl mx-auto reveal opacity-0 translate-y-6 transition-all duration-700">
+        <div class="text-center mb-10">
+          <span class="inline-block px-3 py-1 rounded-full text-xs font-mono font-semibold uppercase tracking-wider bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20 mb-3">Interactive CLI</span>
+          <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white">Developer Terminal</h2>
+          <p class="mt-2 text-slate-600 dark:text-slate-400 text-sm sm:text-base">Click a quick command or type directly to inspect Kartik's profile.</p>
+        </div>
+
+        <!-- macOS Terminal Window -->
+        <div class="rounded-2xl overflow-hidden bg-slate-950 border border-slate-800 shadow-2xl shadow-cyan-950/20">
+          <!-- Window Top Bar -->
+          <div class="flex flex-wrap items-center justify-between gap-2 px-4 py-3 bg-slate-900/95 border-b border-slate-800">
+            <div class="flex items-center gap-2">
+              <span class="w-3 h-3 rounded-full bg-rose-500"></span>
+              <span class="w-3 h-3 rounded-full bg-amber-400"></span>
+              <span class="w-3 h-3 rounded-full bg-emerald-500"></span>
+              <span class="ml-2 text-xs font-mono text-slate-400">kartik@portfolio: ~</span>
+            </div>
+
+            <!-- Quick Command Pills -->
+            <div class="flex flex-wrap items-center gap-1.5">
+              <button type="button" data-cmd="help" class="term-pill px-2.5 py-1 rounded-lg text-[11px] font-mono bg-slate-800 hover:bg-cyan-500/20 text-cyan-300 border border-slate-700 hover:border-cyan-500/40 transition-colors">help</button>
+              <button type="button" data-cmd="about" class="term-pill px-2.5 py-1 rounded-lg text-[11px] font-mono bg-slate-800 hover:bg-cyan-500/20 text-slate-300 hover:text-cyan-300 border border-slate-700 transition-colors">about</button>
+              <button type="button" data-cmd="skills" class="term-pill px-2.5 py-1 rounded-lg text-[11px] font-mono bg-slate-800 hover:bg-cyan-500/20 text-slate-300 hover:text-cyan-300 border border-slate-700 transition-colors">skills</button>
+              <button type="button" data-cmd="projects" class="term-pill px-2.5 py-1 rounded-lg text-[11px] font-mono bg-slate-800 hover:bg-cyan-500/20 text-slate-300 hover:text-cyan-300 border border-slate-700 transition-colors">projects</button>
+              <button type="button" data-cmd="awards" class="term-pill px-2.5 py-1 rounded-lg text-[11px] font-mono bg-slate-800 hover:bg-cyan-500/20 text-slate-300 hover:text-cyan-300 border border-slate-700 transition-colors">awards</button>
+              <button type="button" data-cmd="contact" class="term-pill px-2.5 py-1 rounded-lg text-[11px] font-mono bg-slate-800 hover:bg-cyan-500/20 text-slate-300 hover:text-cyan-300 border border-slate-700 transition-colors">contact</button>
+              <button type="button" data-cmd="clear" class="term-pill px-2.5 py-1 rounded-lg text-[11px] font-mono bg-slate-800 hover:bg-rose-500/20 text-rose-300 border border-slate-700 transition-colors">clear</button>
+            </div>
+          </div>
+
+          <!-- Terminal Output Area -->
+          <div id="terminal-output" class="p-4 sm:p-5 font-mono text-xs sm:text-sm text-slate-300 h-64 sm:h-72 overflow-y-auto space-y-3 leading-relaxed">
+            <div class="text-cyan-400">
+              Welcome to KartikOS v2.0.26 — Interactive Portfolio Shell
+            </div>
+            <div class="text-slate-400">
+              Type <span class="text-emerald-400 font-semibold">'help'</span> or click any pill above to explore Kartik Tomar's profile.
+            </div>
+          </div>
+
+          <!-- Terminal Input Form -->
+          <form id="terminal-form" class="flex items-center gap-2 px-4 sm:px-5 py-3 bg-slate-900/70 border-t border-slate-800">
+            <span class="font-mono text-xs sm:text-sm text-emerald-400 shrink-0">kartik@dev:~$</span>
+            <input
+              id="terminal-input"
+              type="text"
+              autocomplete="off"
+              spellcheck="false"
+              placeholder="Type a command (e.g. about, skills, projects)..."
+              class="w-full bg-transparent text-xs sm:text-sm font-mono text-white placeholder-slate-500 focus:outline-none"
+            />
+            <button type="submit" class="px-3 py-1.5 rounded-lg bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 text-xs font-mono border border-cyan-500/30 transition-colors shrink-0">
+              Run
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         3. TECHNICAL SKILLS SECTION
+    ========================================================== -->
+    <section id="skills" class="py-16 sm:py-24 px-4 sm:px-6 lg:px-8">
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center max-w-2xl mx-auto mb-10 reveal opacity-0 translate-y-6 transition-all duration-700">
+          <span class="inline-block px-3 py-1 rounded-full text-xs font-mono font-semibold uppercase tracking-wider bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border border-cyan-500/20 mb-3">Capabilities</span>
+          <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white">Technical Skills &amp; Expertise</h2>
+          <p class="mt-2 text-slate-600 dark:text-slate-400">Core programming foundations, modern web design principles, and analytical problem-solving.</p>
+        </div>
+
+        <!-- Category Filter Tabs -->
+        <div class="flex flex-wrap items-center justify-center gap-2 mb-10 reveal opacity-0 translate-y-6 transition-all duration-700">
+          <button type="button" data-skill-filter="all" class="skill-tab active px-4 py-2.5 rounded-xl text-sm font-semibold bg-gradient-to-r from-cyan-500 to-indigo-600 text-white shadow-md shadow-cyan-500/20 transition-all">All</button>
+          <button type="button" data-skill-filter="programming" class="skill-tab px-4 py-2.5 rounded-xl text-sm font-semibold bg-white dark:bg-slate-900/80 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:border-cyan-500/50 transition-all">Programming</button>
+          <button type="button" data-skill-filter="web-tools" class="skill-tab px-4 py-2.5 rounded-xl text-sm font-semibold bg-white dark:bg-slate-900/80 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:border-cyan-500/50 transition-all">Web &amp; Tools</button>
+          <button type="button" data-skill-filter="data-soft" class="skill-tab px-4 py-2.5 rounded-xl text-sm font-semibold bg-white dark:bg-slate-900/80 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:border-cyan-500/50 transition-all">Data &amp; Soft Skills</button>
+        </div>
+
+        <!-- Skills Grid (Rendered Dynamically via JS) -->
+        <div id="skills-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 reveal opacity-0 translate-y-6 transition-all duration-700"></div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         4. PROJECTS SECTION (Filter + Case Study Modal)
+    ========================================================== -->
+    <section id="projects" class="py-16 sm:py-24 px-4 sm:px-6 lg:px-8">
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center max-w-2xl mx-auto mb-10 reveal opacity-0 translate-y-6 transition-all duration-700">
+          <span class="inline-block px-3 py-1 rounded-full text-xs font-mono font-semibold uppercase tracking-wider bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20 mb-3">Portfolio</span>
+          <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white">Featured Projects</h2>
+          <p class="mt-2 text-slate-600 dark:text-slate-400">Practical implementations spanning Machine Learning, Web UI/UX, and Core Algorithmic Programming.</p>
+        </div>
+
+        <!-- Project Filter Buttons -->
+        <div class="flex flex-wrap items-center justify-center gap-2 mb-10 reveal opacity-0 translate-y-6 transition-all duration-700">
+          <button type="button" data-project-filter="all" class="project-tab px-4 py-2.5 rounded-xl text-sm font-semibold bg-gradient-to-r from-cyan-500 to-indigo-600 text-white shadow-md shadow-cyan-500/20 transition-all">All Projects</button>
+          <button type="button" data-project-filter="ai" class="project-tab px-4 py-2.5 rounded-xl text-sm font-semibold bg-white dark:bg-slate-900/80 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:border-cyan-500/50 transition-all">AI &amp; Data</button>
+          <button type="button" data-project-filter="web" class="project-tab px-4 py-2.5 rounded-xl text-sm font-semibold bg-white dark:bg-slate-900/80 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:border-cyan-500/50 transition-all">Web Design</button>
+          <button type="button" data-project-filter="core" class="project-tab px-4 py-2.5 rounded-xl text-sm font-semibold bg-white dark:bg-slate-900/80 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:border-cyan-500/50 transition-all">C++ &amp; Python</button>
+        </div>
+
+        <!-- Projects Grid (Rendered Dynamically via JS) -->
+        <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 reveal opacity-0 translate-y-6 transition-all duration-700"></div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         5. EDUCATION TIMELINE
+    ========================================================== -->
+    <section id="education" class="py-16 sm:py-24 px-4 sm:px-6 lg:px-8">
+      <div class="max-w-4xl mx-auto">
+        <div class="text-center max-w-2xl mx-auto mb-14 reveal opacity-0 translate-y-6 transition-all duration-700">
+          <span class="inline-block px-3 py-1 rounded-full text-xs font-mono font-semibold uppercase tracking-wider bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border border-cyan-500/20 mb-3">Academic Journey</span>
+          <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white">Education Timeline</h2>
+        </div>
+
+        <!-- Vertical Glowing Timeline -->
+        <div class="relative pl-8 sm:pl-10 space-y-8 before:content-[''] before:absolute before:left-3 sm:before:left-4 before:top-2 before:bottom-2 before:w-0.5 before:bg-gradient-to-b before:from-cyan-500 before:via-indigo-500 before:to-slate-300 dark:before:to-slate-800">
+
+          <!-- B.Tech CSE -->
+          <div class="relative reveal opacity-0 translate-y-6 transition-all duration-700">
+            <span class="absolute -left-8 sm:-left-10 top-6 flex h-6 w-6 items-center justify-center rounded-full bg-cyan-500/20 ring-4 ring-slate-50 dark:ring-obsidian">
+              <span class="h-3 w-3 rounded-full bg-cyan-500 shadow-[0_0_12px_#06b6d4]"></span>
+            </span>
+            <div class="p-6 rounded-2xl bg-white/85 dark:bg-slate-900/70 backdrop-blur-md border border-slate-200 dark:border-slate-800 hover:border-cyan-500/50 shadow-lg shadow-slate-900/5 dark:shadow-black/20 transition-all">
+              <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+                <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-cyan-500/15 text-cyan-700 dark:text-cyan-300 border border-cyan-500/30">2023 &ndash; 2027</span>
+                <span class="text-xs font-medium text-emerald-600 dark:text-emerald-400 flex items-center gap-1">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Pursuing
+                </span>
+              </div>
+              <h3 class="text-xl font-bold text-slate-900 dark:text-white">Bachelor of Technology (B.Tech) in Computer Science</h3>
+              <p class="text-sm font-medium text-indigo-600 dark:text-indigo-400 mt-1">FIT Engineering College (AKTU)</p>
+              <p class="text-sm text-slate-600 dark:text-slate-400 mt-3 leading-relaxed">
+                Focusing on Advanced Data Structures, Algorithms, and Data Analytics, alongside full-stack web fundamentals and software engineering practices.
+              </p>
+            </div>
+          </div>
+
+          <!-- 12th Standard -->
+          <div class="relative reveal opacity-0 translate-y-6 transition-all duration-700 delay-100">
+            <span class="absolute -left-8 sm:-left-10 top-6 flex h-6 w-6 items-center justify-center rounded-full bg-indigo-500/20 ring-4 ring-slate-50 dark:ring-obsidian">
+              <span class="h-3 w-3 rounded-full bg-indigo-500 shadow-[0_0_12px_#6366f1]"></span>
+            </span>
+            <div class="p-6 rounded-2xl bg-white/85 dark:bg-slate-900/70 backdrop-blur-md border border-slate-200 dark:border-slate-800 hover:border-indigo-500/50 shadow-lg shadow-slate-900/5 dark:shadow-black/20 transition-all">
+              <span class="inline-block px-3 py-1 rounded-full text-xs font-mono font-semibold bg-indigo-500/15 text-indigo-700 dark:text-indigo-300 border border-indigo-500/30 mb-2">2023</span>
+              <h3 class="text-xl font-bold text-slate-900 dark:text-white">High School Certificate (12th)</h3>
+              <p class="text-sm font-medium text-indigo-600 dark:text-indigo-400 mt-1">MDS Inter College</p>
+              <p class="text-sm text-slate-600 dark:text-slate-400 mt-2">
+                Completed senior secondary education with a strong foundation in Mathematics and analytical reasoning.
+              </p>
+            </div>
+          </div>
+
+          <!-- 10th Standard -->
+          <div class="relative reveal opacity-0 translate-y-6 transition-all duration-700 delay-200">
+            <span class="absolute -left-8 sm:-left-10 top-6 flex h-6 w-6 items-center justify-center rounded-full bg-slate-400/20 dark:bg-slate-700/60 ring-4 ring-slate-50 dark:ring-obsidian">
+              <span class="h-3 w-3 rounded-full bg-slate-500 dark:bg-slate-400"></span>
+            </span>
+            <div class="p-6 rounded-2xl bg-white/85 dark:bg-slate-900/70 backdrop-blur-md border border-slate-200 dark:border-slate-800 hover:border-cyan-500/40 shadow-lg shadow-slate-900/5 dark:shadow-black/20 transition-all">
+              <span class="inline-block px-3 py-1 rounded-full text-xs font-mono font-semibold bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 mb-2">2021</span>
+              <h3 class="text-xl font-bold text-slate-900 dark:text-white">Secondary School Certificate (10th Standard)</h3>
+              <p class="text-sm font-medium text-indigo-600 dark:text-indigo-400 mt-1">Rajesh Pilot Inter College, UP Board</p>
+              <p class="text-sm text-slate-600 dark:text-slate-400 mt-2">
+                Built core academic discipline across Science, Mathematics, and foundational computer literacy.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         6. CERTIFICATIONS & AWARDS SECTION
+    ========================================================== -->
+    <section id="certifications" class="py-16 sm:py-24 px-4 sm:px-6 lg:px-8">
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center max-w-2xl mx-auto mb-12 reveal opacity-0 translate-y-6 transition-all duration-700">
+          <span class="inline-block px-3 py-1 rounded-full text-xs font-mono font-semibold uppercase tracking-wider bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20 mb-3">Recognition</span>
+          <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white">Certifications &amp; Awards</h2>
+          <p class="mt-2 text-slate-600 dark:text-slate-400">Verified credentials from premier institutions and competitive hackathon milestones.</p>
+        </div>
+
+        <!-- Featured Award Banner -->
+        <div class="mb-8 p-1 rounded-3xl bg-gradient-to-r from-cyan-500 via-indigo-500 to-purple-600 shadow-xl shadow-indigo-500/15 reveal opacity-0 translate-y-6 transition-all duration-700">
+          <div class="p-6 sm:p-8 rounded-[22px] bg-white dark:bg-slate-950/95 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+            <div class="flex items-start gap-4">
+              <div class="p-3.5 rounded-2xl bg-gradient-to-br from-amber-400/20 to-orange-500/20 border border-amber-400/30 text-amber-500 dark:text-amber-400 shrink-0">
+                <i data-lucide="trophy" class="w-8 h-8"></i>
+              </div>
+              <div>
+                <span class="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full text-xs font-mono font-semibold bg-amber-500/15 text-amber-600 dark:text-amber-300 border border-amber-500/30 mb-2">
+                  Featured Achievement &bull; 2025
+                </span>
+                <h3 class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white">
+                  Semi-Finalist &mdash; Yukti NIR Start-up Challenge Hackathon 2025
+                </h3>
+                <p class="text-sm text-slate-600 dark:text-slate-400 mt-1.5 max-w-2xl">
+                  Recognized for innovative problem-solving, startup ideation, and technical execution among competing engineering teams.
+                </p>
+              </div>
+            </div>
+            <div class="shrink-0">
+              <span class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs font-mono font-semibold text-cyan-600 dark:text-cyan-400">
+                <i data-lucide="sparkles" class="w-4 h-4"></i>
+                Hackathon Semi-Finalist
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Certification Cards Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5 reveal opacity-0 translate-y-6 transition-all duration-700 delay-100">
+          <!-- Cert 1 -->
+          <div class="p-6 rounded-2xl bg-white/85 dark:bg-slate-900/70 backdrop-blur-md border border-slate-200 dark:border-slate-800 hover:border-cyan-500/50 hover:-translate-y-1 transition-all flex items-start gap-4">
+            <div class="p-3 rounded-xl bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 shrink-0">
+              <i data-lucide="cpu" class="w-6 h-6"></i>
+            </div>
+            <div class="flex-1">
+              <div class="flex flex-wrap items-center justify-between gap-2 mb-1">
+                <h3 class="text-lg font-bold text-slate-900 dark:text-white">OOPS with C++</h3>
+                <span class="px-2.5 py-0.5 rounded-lg text-[11px] font-mono font-semibold bg-cyan-500/10 text-cyan-700 dark:text-cyan-300 border border-cyan-500/20">IIT Kanpur</span>
+              </div>
+              <p class="text-sm text-slate-600 dark:text-slate-400">E &amp; ICT Academy, IIT Kanpur (Student Development Program)</p>
+            </div>
+          </div>
+
+          <!-- Cert 2 -->
+          <div class="p-6 rounded-2xl bg-white/85 dark:bg-slate-900/70 backdrop-blur-md border border-slate-200 dark:border-slate-800 hover:border-cyan-500/50 hover:-translate-y-1 transition-all flex items-start gap-4">
+            <div class="p-3 rounded-xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 shrink-0">
+              <i data-lucide="terminal" class="w-6 h-6"></i>
+            </div>
+            <div class="flex-1">
+              <div class="flex flex-wrap items-center justify-between gap-2 mb-1">
+                <h3 class="text-lg font-bold text-slate-900 dark:text-white">C Programming</h3>
+                <span class="px-2.5 py-0.5 rounded-lg text-[11px] font-mono font-semibold bg-indigo-500/10 text-indigo-700 dark:text-indigo-300 border border-indigo-500/20">IIT Kanpur</span>
+              </div>
+              <p class="text-sm text-slate-600 dark:text-slate-400">E &amp; ICT Academy, IIT Kanpur (Student Development Program)</p>
+            </div>
+          </div>
+
+          <!-- Cert 3 -->
+          <div class="p-6 rounded-2xl bg-white/85 dark:bg-slate-900/70 backdrop-blur-md border border-slate-200 dark:border-slate-800 hover:border-cyan-500/50 hover:-translate-y-1 transition-all flex items-start gap-4">
+            <div class="p-3 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 shrink-0">
+              <i data-lucide="layout" class="w-6 h-6"></i>
+            </div>
+            <div class="flex-1">
+              <div class="flex flex-wrap items-center justify-between gap-2 mb-1">
+                <h3 class="text-lg font-bold text-slate-900 dark:text-white">Diploma in Web Designing (DWD)</h3>
+                <span class="px-2.5 py-0.5 rounded-lg text-[11px] font-mono font-semibold bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border border-emerald-500/20">Grade A+</span>
+              </div>
+              <p class="text-sm text-slate-600 dark:text-slate-400">IT Meerut Computer &amp; Accounting Institute</p>
+            </div>
+          </div>
+
+          <!-- Cert 4 -->
+          <div class="p-6 rounded-2xl bg-white/85 dark:bg-slate-900/70 backdrop-blur-md border border-slate-200 dark:border-slate-800 hover:border-cyan-500/50 hover:-translate-y-1 transition-all flex items-start gap-4">
+            <div class="p-3 rounded-xl bg-purple-500/10 text-purple-600 dark:text-purple-400 shrink-0">
+              <i data-lucide="brain-circuit" class="w-6 h-6"></i>
+            </div>
+            <div class="flex-1">
+              <div class="flex flex-wrap items-center justify-between gap-2 mb-1">
+                <h3 class="text-lg font-bold text-slate-900 dark:text-white">Yuva AI for All</h3>
+                <span class="px-2.5 py-0.5 rounded-lg text-[11px] font-mono font-semibold bg-purple-500/10 text-purple-700 dark:text-purple-300 border border-purple-500/20">NASSCOM</span>
+              </div>
+              <p class="text-sm text-slate-600 dark:text-slate-400">NASSCOM / FutureSkills Prime</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         7. CONTACT SECTION
+    ========================================================== -->
+    <section id="contact" class="py-16 sm:py-24 px-4 sm:px-6 lg:px-8">
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center max-w-2xl mx-auto mb-12 reveal opacity-0 translate-y-6 transition-all duration-700">
+          <span class="inline-block px-3 py-1 rounded-full text-xs font-mono font-semibold uppercase tracking-wider bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border border-cyan-500/20 mb-3">Get In Touch</span>
+          <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white">Let's Connect &amp; Collaborate</h2>
+          <p class="mt-2 text-slate-600 dark:text-slate-400">Looking for internships, software projects, or tech collaborations? Drop a message anytime.</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          <!-- Contact Details & Socials -->
+          <div class="lg:col-span-5 space-y-4 reveal opacity-0 translate-y-6 transition-all duration-700">
+            <!-- Email Card -->
+            <div class="p-5 rounded-2xl bg-white/85 dark:bg-slate-900/70 backdrop-blur-md border border-slate-200 dark:border-slate-800 flex items-center justify-between gap-3">
+              <div class="flex items-center gap-3.5 min-w-0">
+                <div class="p-3 rounded-xl bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 shrink-0">
+                  <i data-lucide="mail" class="w-5 h-5"></i>
+                </div>
+                <div class="min-w-0">
+                  <p class="text-xs text-slate-500 dark:text-slate-400">Email</p>
+                  <p class="text-sm font-semibold text-slate-900 dark:text-white truncate">iamkartiktomar01@gmail.com</p>
+                </div>
+              </div>
+              <button type="button" data-copy="iamkartiktomar01@gmail.com" data-label="Email" class="copy-btn p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-cyan-500/20 text-slate-600 dark:text-slate-300 hover:text-cyan-500 transition-colors shrink-0" aria-label="Copy Email">
+                <i data-lucide="copy" class="w-4 h-4"></i>
+              </button>
+            </div>
+
+            <!-- Phone Card -->
+            <div class="p-5 rounded-2xl bg-white/85 dark:bg-slate-900/70 backdrop-blur-md border border-slate-200 dark:border-slate-800 flex items-center justify-between gap-3">
+              <div class="flex items-center gap-3.5 min-w-0">
+                <div class="p-3 rounded-xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 shrink-0">
+                  <i data-lucide="phone" class="w-5 h-5"></i>
+                </div>
+                <div class="min-w-0">
+                  <p class="text-xs text-slate-500 dark:text-slate-400">Phone</p>
+                  <p class="text-sm font-semibold text-slate-900 dark:text-white">+91 9528718339</p>
+                </div>
+              </div>
+              <button type="button" data-copy="+919528718339" data-label="Phone Number" class="copy-btn p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-indigo-500/20 text-slate-600 dark:text-slate-300 hover:text-indigo-500 transition-colors shrink-0" aria-label="Copy Phone">
+                <i data-lucide="copy" class="w-4 h-4"></i>
+              </button>
+            </div>
+
+            <!-- Location Card -->
+            <div class="p-5 rounded-2xl bg-white/85 dark:bg-slate-900/70 backdrop-blur-md border border-slate-200 dark:border-slate-800 flex items-center justify-between gap-3">
+              <div class="flex items-center gap-3.5 min-w-0">
+                <div class="p-3 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 shrink-0">
+                  <i data-lucide="map-pin" class="w-5 h-5"></i>
+                </div>
+                <div class="min-w-0">
+                  <p class="text-xs text-slate-500 dark:text-slate-400">Location</p>
+                  <p class="text-sm font-semibold text-slate-900 dark:text-white">Meerut, UP, India</p>
+                </div>
+              </div>
+              <button type="button" data-copy="Meerut, UP, India" data-label="Location" class="copy-btn p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-emerald-500/20 text-slate-600 dark:text-slate-300 hover:text-emerald-500 transition-colors shrink-0" aria-label="Copy Location">
+                <i data-lucide="copy" class="w-4 h-4"></i>
+              </button>
+            </div>
+
+            <!-- Social Links Bar (Update href URLs with your live profiles) -->
+            <div class="p-5 rounded-2xl bg-white/85 dark:bg-slate-900/70 backdrop-blur-md border border-slate-200 dark:border-slate-800">
+              <p class="text-xs font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">Social Profiles</p>
+              <div class="flex flex-wrap gap-3">
+                <a href="https://github.com/kartiktomar" target="_blank" rel="noopener noreferrer" class="flex-1 min-w-[100px] inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-slate-100 dark:bg-slate-800/90 hover:bg-slate-900 hover:text-white dark:hover:bg-white dark:hover:text-slate-900 text-sm font-semibold transition-all">
+                  <i data-lucide="github" class="w-4 h-4"></i>
+                  <span>GitHub</span>
+                </a>
+                <a href="https://linkedin.com/in/kartiktomar" target="_blank" rel="noopener noreferrer" class="flex-1 min-w-[100px] inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-slate-100 dark:bg-slate-800/90 hover:bg-sky-600 hover:text-white text-sm font-semibold transition-all">
+                  <i data-lucide="linkedin" class="w-4 h-4"></i>
+                  <span>LinkedIn</span>
+                </a>
+                <a href="mailto:iamkartiktomar01@gmail.com" class="flex-1 min-w-[100px] inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-slate-100 dark:bg-slate-800/90 hover:bg-cyan-600 hover:text-white text-sm font-semibold transition-all">
+                  <i data-lucide="send" class="w-4 h-4"></i>
+                  <span>Email</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Interactive Contact Form -->
+          <div class="lg:col-span-7 reveal opacity-0 translate-y-6 transition-all duration-700 delay-100">
+            <form id="contact-form" novalidate class="p-6 sm:p-8 rounded-3xl bg-white/90 dark:bg-slate-900/75 backdrop-blur-md border border-slate-200 dark:border-slate-800 shadow-xl shadow-slate-900/5 dark:shadow-black/30 space-y-5">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                <div>
+                  <label for="contact-name" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">Your Name</label>
+                  <input id="contact-name" type="text" required placeholder="e.g. Rahul Sharma" class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-950/80 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500 transition-all" />
+                </div>
+                <div>
+                  <label for="contact-email" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">Your Email</label>
+                  <input id="contact-email" type="email" required placeholder="you@example.com" class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-950/80 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500 transition-all" />
+                </div>
+              </div>
+
+              <div>
+                <label for="contact-message" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">Message</label>
+                <textarea id="contact-message" rows="5" required placeholder="Tell me about an internship opportunity, project idea, or just say hello..." class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-950/80 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500 transition-all resize-none"></textarea>
+              </div>
+
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-1">
+                <p class="text-xs text-slate-500 dark:text-slate-400">
+                  Works seamlessly on static hosting via instant email draft &amp; confirmation.
+                </p>
+                <button type="submit" class="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl font-semibold text-white bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 shadow-lg shadow-cyan-500/25 hover:shadow-cyan-500/40 transition-all shrink-0">
+                  <span>Send Message</span>
+                  <i data-lucide="send" class="w-4 h-4"></i>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =========================================================
+       FOOTER & BACK TO TOP
+  ========================================================== -->
+  <footer class="relative z-10 border-t border-slate-200 dark:border-slate-800/80 bg-white/60 dark:bg-slate-950/60 backdrop-blur-md">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="text-center sm:text-left">
+        <p class="text-sm font-semibold text-slate-900 dark:text-white">Kartik Tomar</p>
+        <p class="text-xs text-slate-500 dark:text-slate-400">&copy; <span id="current-year"></span> Kartik Tomar. Built with clean code in Meerut, UP, India.</p>
+      </div>
+
+      <a href="#home" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-slate-900 hover:bg-cyan-500/15 hover:text-cyan-600 dark:hover:text-cyan-400 border border-slate-200 dark:border-slate-800 transition-all">
+        <span>Back to Top</span>
+        <i data-lucide="arrow-up" class="w-4 h-4"></i>
+      </a>
+    </div>
+  </footer>
+
+  <!-- =========================================================
+       PROJECT CASE STUDY MODAL
+  ========================================================== -->
+  <div id="project-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-slate-950/75 backdrop-blur-sm">
+    <div id="project-modal-card" class="relative w-full max-w-2xl rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-2xl overflow-hidden transform transition-all">
+      <!-- Modal Header Banner -->
+      <div class="p-6 sm:p-7 bg-gradient-to-r from-cyan-500/15 via-indigo-500/15 to-purple-500/15 border-b border-slate-200 dark:border-slate-800 flex items-start justify-between gap-4">
+        <div>
+          <span id="modal-category" class="inline-block px-3 py-1 rounded-full text-xs font-mono font-semibold bg-cyan-500/15 text-cyan-700 dark:text-cyan-300 border border-cyan-500/30 mb-2"></span>
+          <h3 id="modal-title" class="text-2xl font-bold text-slate-900 dark:text-white"></h3>
+        </div>
+        <button id="modal-close-btn" type="button" aria-label="Close Modal" class="p-2 rounded-xl bg-white/80 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:text-rose-500 border border-slate-200 dark:border-slate-700 transition-colors">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="p-6 sm:p-7 space-y-5 max-h-[70vh] overflow-y-auto">
+        <p id="modal-summary" class="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed"></p>
+
+        <div>
+          <h4 class="text-xs font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2.5">Key Highlights &amp; Outcomes</h4>
+          <ul id="modal-highlights" class="space-y-2 text-sm text-slate-700 dark:text-slate-300"></ul>
+        </div>
+
+        <div>
+          <h4 class="text-xs font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2.5">Tech Stack</h4>
+          <div id="modal-tags" class="flex flex-wrap gap-2"></div>
+        </div>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="px-6 py-4 bg-slate-50 dark:bg-slate-950/60 border-t border-slate-200 dark:border-slate-800 flex items-center justify-end gap-3">
+        <button id="modal-close-footer" type="button" class="px-5 py-2.5 rounded-xl text-sm font-semibold bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 hover:bg-slate-300 dark:hover:bg-slate-700 transition-colors">Close</button>
+        <a href="#contact" id="modal-discuss-btn" class="px-5 py-2.5 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 transition-all">Discuss This Project</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       APPLICATION JAVASCRIPT
+  ========================================================== -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Initialize Lucide icons safely
+      if (window.lucide) {
+        lucide.createIcons();
+      }
+
+      // Set current year in footer
+      const yearEl = document.getElementById('current-year');
+      if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+      /* =========================================================
+         1. TOAST NOTIFICATION HELPER (No alert() / confirm())
+      ========================================================== */
+      function showToast(message, type = 'success') {
+        const container = document.getElementById('toast-container');
+        const toast = document.createElement('div');
+        const colorClasses = type === 'error'
+          ? 'bg-rose-600 text-white border-rose-400/40'
+          : 'bg-slate-900 dark:bg-slate-800 text-white border-cyan-500/40';
+
+        toast.className = `pointer-events-auto flex items-center gap-2.5 px-4 py-3 rounded-xl border shadow-xl text-sm font-medium transform translate-y-4 opacity-0 transition-all duration-300 ${colorClasses}`;
+        toast.innerHTML = `
+          <span class="w-2 h-2 rounded-full ${type === 'error' ? 'bg-rose-200' : 'bg-cyan-400'} shrink-0"></span>
+          <span>${message}</span>
+        `;
+
+        container.appendChild(toast);
+        requestAnimationFrame(() => {
+          toast.classList.remove('translate-y-4', 'opacity-0');
+        });
+
+        setTimeout(() => {
+          toast.classList.add('translate-y-4', 'opacity-0');
+          setTimeout(() => toast.remove(), 300);
+        }, 3000);
+      }
+
+      /* =========================================================
+         2. CLIPBOARD COPY HELPER (Iframe-safe via execCommand)
+      ========================================================== */
+      function copyToClipboard(text, label = 'Text') {
+        try {
+          const textarea = document.createElement('textarea');
+          textarea.value = text;
+          textarea.setAttribute('readonly', '');
+          textarea.style.position = 'fixed';
+          textarea.style.opacity = '0';
+          document.body.appendChild(textarea);
+          textarea.select();
+          document.execCommand('copy');
+          document.body.removeChild(textarea);
+          showToast(`${label} copied to clipboard!`);
+        } catch (err) {
+          showToast(`Unable to copy ${label}.`, 'error');
+        }
+      }
+
+      document.getElementById('hero-copy-email')?.addEventListener('click', () => {
+        copyToClipboard('iamkartiktomar01@gmail.com', 'Email');
+      });
+
+      document.querySelectorAll('.copy-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          copyToClipboard(btn.dataset.copy, btn.dataset.label || 'Info');
+        });
+      });
+
+      /* =========================================================
+         3. DARK / LIGHT THEME TOGGLE
+      ========================================================== */
+      const htmlEl = document.documentElement;
+      const savedTheme = localStorage.getItem('kartik-portfolio-theme');
+      if (savedTheme === 'light') {
+        htmlEl.classList.remove('dark');
+      } else {
+        htmlEl.classList.add('dark');
+      }
+
+      document.getElementById('theme-toggle')?.addEventListener('click', () => {
+        htmlEl.classList.toggle('dark');
+        const isDark = htmlEl.classList.contains('dark');
+        localStorage.setItem('kartik-portfolio-theme', isDark ? 'dark' : 'light');
+        showToast(isDark ? 'Dark mode enabled' : 'Light mode enabled');
+      });
+
+      /* =========================================================
+         4. MOBILE MENU & ACTIVE NAV HIGHLIGHTING
+      ========================================================== */
+      const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const iconOpen = document.getElementById('menu-icon-open');
+      const iconClose = document.getElementById('menu-icon-close');
+
+      function toggleMobileMenu(forceClose = false) {
+        const isHidden = mobileMenu.classList.contains('hidden');
+        if (forceClose || !isHidden) {
+          mobileMenu.classList.add('hidden');
+          iconOpen.classList.remove('hidden');
+          iconClose.classList.add('hidden');
+        } else {
+          mobileMenu.classList.remove('hidden');
+          iconOpen.classList.add('hidden');
+          iconClose.classList.remove('hidden');
+        }
+      }
+
+      mobileMenuBtn?.addEventListener('click', () => toggleMobileMenu());
+      document.querySelectorAll('.mobile-nav-link').forEach(link => {
+        link.addEventListener('click', () => toggleMobileMenu(true));
+      });
+
+      // Highlight active section in desktop nav on scroll
+      const sections = document.querySelectorAll('section[id]');
+      const navLinks = document.querySelectorAll('.nav-link');
+      const sectionObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const id = entry.target.getAttribute('id');
+            navLinks.forEach(link => {
+              if (link.dataset.nav === id) {
+                link.classList.add('text-cyan-600', 'dark:text-cyan-400', 'bg-cyan-500/10');
+              } else {
+                link.classList.remove('text-cyan-600', 'dark:text-cyan-400', 'bg-cyan-500/10');
+              }
+            });
+          }
+        });
+      }, { rootMargin: '-40% 0px -50% 0px' });
+
+      sections.forEach(sec => sectionObserver.observe(sec));
+
+      /* =========================================================
+         5. SCROLL-REVEAL ANIMATIONS
+      ========================================================== */
+      const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.remove('opacity-0', 'translate-y-6');
+            entry.target.classList.add('opacity-100', 'translate-y-0');
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+
+      document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+      /* =========================================================
+         6. HERO TYPEWRITER EFFECT
+      ========================================================== */
+      const roles = [
+        'B.Tech CS Student',
+        'Data Science Enthusiast',
+        'Web Developer',
+        'C++ & Python Programmer'
+      ];
+      const typewriterEl = document.getElementById('typewriter-text');
+      let roleIndex = 0;
+      let charIndex = 0;
+      let isDeleting = false;
+
+      function runTypewriter() {
+        const currentRole = roles[roleIndex];
+        if (!isDeleting) {
+          typewriterEl.textContent = currentRole.substring(0, charIndex + 1);
+          charIndex++;
+          if (charIndex === currentRole.length) {
+            isDeleting = true;
+            setTimeout(runTypewriter, 1700);
+            return;
+          }
+        } else {
+          typewriterEl.textContent = currentRole.substring(0, charIndex - 1);
+          charIndex--;
+          if (charIndex === 0) {
+            isDeleting = false;
+            roleIndex = (roleIndex + 1) % roles.length;
+          }
+        }
+        setTimeout(runTypewriter, isDeleting ? 45 : 85);
+      }
+      runTypewriter();
+
+      /* =========================================================
+         7. DESKTOP CURSOR SPOTLIGHT
+      ========================================================== */
+      const spotlight = document.getElementById('cursor-spotlight');
+      if (spotlight && window.matchMedia('(pointer: fine)').matches) {
+        window.addEventListener('mousemove', (e) => {
+          spotlight.style.opacity = '1';
+          spotlight.style.left = `${e.clientX}px`;
+          spotlight.style.top = `${e.clientY}px`;
+        });
+        window.addEventListener('mouseleave', () => {
+          spotlight.style.opacity = '0';
+        });
+      }
+
+      /* =========================================================
+         8. INTERACTIVE DEVELOPER TERMINAL
+      ========================================================== */
+      const terminalOutput = document.getElementById('terminal-output');
+      const terminalForm = document.getElementById('terminal-form');
+      const terminalInput = document.getElementById('terminal-input');
+      const cmdHistory = [];
+      let historyIdx = -1;
+
+      const terminalCommands = {
+        help: () => `
+          <div class="text-cyan-300 font-semibold mb-1">Available Commands:</div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-1 text-slate-300">
+            <div><span class="text-emerald-400">about</span>    — Quick developer summary</div>
+            <div><span class="text-emerald-400">skills</span>   — Languages, web &amp; tools</div>
+            <div><span class="text-emerald-400">projects</span> — Featured project list</div>
+            <div><span class="text-emerald-400">awards</span>   — Hackathons &amp; certifications</div>
+            <div><span class="text-emerald-400">contact</span>  — Email, phone &amp; location</div>
+            <div><span class="text-emerald-400">clear</span>    — Clear terminal screen</div>
+          </div>`,
+        about: () => `
+          <div class="text-slate-200">
+            <span class="text-cyan-400 font-semibold">Kartik Tomar</span> | B.Tech Computer Science (2027) @ FIT Engineering College (AKTU).<br/>
+            Proficient in C, C++, Java &amp; Python. Passionate about web development and data-driven problem solving.
+          </div>`,
+        skills: () => `
+          <div class="space-y-1">
+            <div><span class="text-indigo-400">Languages:</span> C, C++, Java, Python</div>
+            <div><span class="text-indigo-400">Web:</span> HTML5, CSS3, Web Design Principles</div>
+            <div><span class="text-indigo-400">Tools:</span> VS Code, Git, Basic Command Line</div>
+            <div><span class="text-indigo-400">Focus:</span> Data Science Foundations, CS Fundamentals, Problem-solving</div>
+          </div>`,
+        projects: () => `
+          <div class="space-y-1">
+            <div><span class="text-cyan-400">1. AI-Driven Stock Price Forecasting</span> (Python, ML, Data Analytics)</div>
+            <div><span class="text-cyan-400">2. Personal Portfolio Website</span> (HTML5, CSS3, UI/UX, VS Code)</div>
+            <div><span class="text-cyan-400">3. Basic Programming Implementation</span> (C++, Python, Algorithms)</div>
+          </div>`,
+        awards: () => `
+          <div class="space-y-1">
+            <div><span class="text-amber-400">&#9733; Semi-Finalist</span> — Yukti NIR Start-up Challenge Hackathon 2025</div>
+            <div>&bull; OOPS with C++ &amp; C Programming — E &amp; ICT Academy, IIT Kanpur</div>
+            <div>&bull; Diploma in Web Designing (DWD) — Grade A+</div>
+            <div>&bull; Yuva AI for All — NASSCOM / FutureSkills Prime</div>
+          </div>`,
+        contact: () => `
+          <div class="space-y-1">
+            <div><span class="text-emerald-400">Email:</span>    iamkartiktomar01@gmail.com</div>
+            <div><span class="text-emerald-400">Phone:</span>    +91 9528718339</div>
+            <div><span class="text-emerald-400">Location:</span> Meerut, UP, India</div>
+          </div>`
+      };
+
+      function executeCommand(rawCmd) {
+        const cmd = rawCmd.trim().toLowerCase();
+        if (!cmd) return;
+
+        cmdHistory.unshift(cmd);
+        historyIdx = -1;
+
+        if (cmd === 'clear') {
+          terminalOutput.innerHTML = `<div class="text-slate-400">Terminal cleared. Type <span class="text-emerald-400">'help'</span> to view commands.</div>`;
+          return;
+        }
+
+        const entry = document.createElement('div');
+        entry.className = 'space-y-1.5';
+        const responseHTML = terminalCommands[cmd]
+          ? terminalCommands[cmd]()
+          : `<div class="text-rose-400">Command not found: '${cmd}'. Type <span class="text-emerald-400">'help'</span> for available commands.</div>`;
+
+        entry.innerHTML = `
+          <div class="flex items-center gap-2">
+            <span class="text-emerald-400">kartik@dev:~$</span>
+            <span class="text-white">${cmd}</span>
+          </div>
+          <div class="pl-3 border-l-2 border-slate-800">${responseHTML}</div>
+        `;
+        terminalOutput.appendChild(entry);
+        terminalOutput.scrollTop = terminalOutput.scrollHeight;
+      }
+
+      terminalForm?.addEventListener('submit', (e) => {
+        e.preventDefault();
+        executeCommand(terminalInput.value);
+        terminalInput.value = '';
+      });
+
+      terminalInput?.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowUp' && cmdHistory.length > 0) {
+          e.preventDefault();
+          historyIdx = Math.min(historyIdx + 1, cmdHistory.length - 1);
+          terminalInput.value = cmdHistory[historyIdx];
+        } else if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          historyIdx = Math.max(historyIdx - 1, -1);
+          terminalInput.value = historyIdx === -1 ? '' : cmdHistory[historyIdx];
+        }
+      });
+
+      document.querySelectorAll('.term-pill').forEach(pill => {
+        pill.addEventListener('click', () => {
+          executeCommand(pill.dataset.cmd);
+        });
+      });
+
+      /* =========================================================
+         9. TECHNICAL SKILLS DATA & FILTERING
+      ========================================================== */
+      const skillsData = [
+        {
+          category: 'programming',
+          title: 'Programming Languages',
+          icon: 'code-2',
+          accent: 'cyan',
+          items: [
+            { name: 'C++ (OOPS & DSA)', level: 88 },
+            { name: 'Python', level: 86 },
+            { name: 'C Programming', level: 85 },
+            { name: 'Java', level: 80 }
+          ]
+        },
+        {
+          category: 'web-tools',
+          title: 'Web Technologies',
+          icon: 'globe',
+          accent: 'indigo',
+          items: [
+            { name: 'HTML5', level: 92 },
+            { name: 'CSS3', level: 88 },
+            { name: 'Web Design Principles', level: 85 }
+          ]
+        },
+        {
+          category: 'web-tools',
+          title: 'Tools & IDEs',
+          icon: 'wrench',
+          accent: 'cyan',
+          items: [
+            { name: 'VS Code', level: 92 },
+            { name: 'Git & Version Control', level: 82 },
+            { name: 'Basic Command Line', level: 80 }
+          ]
+        },
+        {
+          category: 'data-soft',
+          title: 'Specialization',
+          icon: 'bar-chart-3',
+          accent: 'indigo',
+          items: [
+            { name: 'Data Science Foundations', level: 82 },
+            { name: 'Computer Science Fundamentals', level: 88 }
+          ]
+        },
+        {
+          category: 'data-soft',
+          title: 'Soft Skills',
+          icon: 'users',
+          accent: 'cyan',
+          items: [
+            { name: 'Problem-solving', level: 90 },
+            { name: 'Technical Documentation', level: 86 },
+            { name: 'Team Collaboration', level: 88 }
+          ]
+        }
+      ];
+
+      const skillsGrid = document.getElementById('skills-grid');
+      function renderSkills(filter = 'all') {
+        const filtered = filter === 'all'
+          ? skillsData
+          : skillsData.filter(s => s.category === filter);
+
+        skillsGrid.innerHTML = filtered.map(group => `
+          <div class="p-6 rounded-2xl bg-white/85 dark:bg-slate-900/70 backdrop-blur-md border border-slate-200 dark:border-slate-800 hover:border-cyan-500/50 shadow-lg shadow-slate-900/5 dark:shadow-black/20 transition-all hover:-translate-y-1">
+            <div class="flex items-center gap-3 mb-5">
+              <div class="p-2.5 rounded-xl ${group.accent === 'cyan' ? 'bg-cyan-500/10 text-cyan-600 dark:text-cyan-400' : 'bg-indigo-500/10 text-indigo-600 dark:text-indigo-400'}">
+                <i data-lucide="${group.icon}" class="w-5 h-5"></i>
+              </div>
+              <h3 class="text-lg font-bold text-slate-900 dark:text-white">${group.title}</h3>
+            </div>
+            <div class="space-y-4">
+              ${group.items.map(skill => `
+                <div>
+                  <div class="flex justify-between text-xs sm:text-sm font-medium mb-1.5">
+                    <span class="text-slate-700 dark:text-slate-300">${skill.name}</span>
+                    <span class="font-mono text-cyan-600 dark:text-cyan-400">${skill.level}%</span>
+                  </div>
+                  <div class="w-full h-2 rounded-full bg-slate-200 dark:bg-slate-800 overflow-hidden">
+                    <div class="h-full rounded-full bg-gradient-to-r from-cyan-500 to-indigo-500 transition-all duration-700" style="width: ${skill.level}%"></div>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `).join('');
+
+        if (window.lucide) lucide.createIcons();
+      }
+      renderSkills('all');
+
+      document.querySelectorAll('.skill-tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+          document.querySelectorAll('.skill-tab').forEach(t => {
+            t.className = 'skill-tab px-4 py-2.5 rounded-xl text-sm font-semibold bg-white dark:bg-slate-900/80 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:border-cyan-500/50 transition-all';
+          });
+          tab.className = 'skill-tab px-4 py-2.5 rounded-xl text-sm font-semibold bg-gradient-to-r from-cyan-500 to-indigo-600 text-white shadow-md shadow-cyan-500/20 transition-all';
+          renderSkills(tab.dataset.skillFilter);
+        });
+      });
+
+      /* =========================================================
+         10. PROJECTS DATA, FILTERING & CASE STUDY MODAL
+      ========================================================== */
+      const projectsData = [
+        {
+          id: 'stock-ai',
+          category: 'ai',
+          categoryLabel: 'Machine Learning & Data',
+          title: 'AI-Driven Stock Price Forecasting',
+          icon: 'trending-up',
+          shortDesc: 'Machine learning system analyzing historical market data to predict price trends using key financial indicators.',
+          fullSummary: 'Developed an AI-driven stock price forecasting system using machine learning models to analyze historical market data and extract actionable trend patterns.',
+          highlights: [
+            'Built predictive pipelines in Python to process and normalize historical stock market datasets.',
+            'Extracted patterns from price trends and key financial indicators to improve forecasting accuracy.',
+            'Evaluated model performance across time-series intervals to minimize prediction error.'
+          ],
+          tags: ['Python', 'Machine Learning', 'Data Analytics']
+        },
+        {
+          id: 'portfolio-web',
+          category: 'web',
+          categoryLabel: 'Web Development & UI/UX',
+          title: 'Personal Portfolio Website',
+          icon: 'layout-template',
+          shortDesc: 'Responsive personal portfolio built with HTML and CSS in VS Code following clean UI/UX principles.',
+          fullSummary: 'Designed and developed a responsive personal website using HTML and CSS in VS Code to professionally showcase academic achievements, certifications, and technical skills.',
+          highlights: [
+            'Implemented clean, accessible UI/UX design principles for desktop and mobile viewports.',
+            'Structured semantic HTML5 sections for education, certifications, and project showcases.',
+            'Optimized layout hierarchy and visual contrast for recruiter readability.'
+          ],
+          tags: ['HTML5', 'CSS3', 'UI/UX', 'VS Code']
+        },
+        {
+          id: 'core-algo',
+          category: 'core',
+          categoryLabel: 'Algorithms & Systems',
+          title: 'Basic Programming Implementation',
+          icon: 'binary',
+          shortDesc: 'Collection of C++ and Python utility programs engineered for algorithmic problem-solving and memory efficiency.',
+          fullSummary: 'Developed various utility programs using C++ and Python to solve algorithmic challenges with a strong focus on memory management and clean, efficient coding practices.',
+          highlights: [
+            'Implemented modular C++ utilities emphasizing memory management and object-oriented structure.',
+            'Solved core algorithmic challenges in Python and C++ with attention to time and space complexity.',
+            'Maintained clean technical documentation for maintainability and reusability.'
+          ],
+          tags: ['C++', 'Python', 'Algorithms', 'Memory Management']
+        }
+      ];
+
+      const projectsGrid = document.getElementById('projects-grid');
+      function renderProjects(filter = 'all') {
+        const filtered = filter === 'all'
+          ? projectsData
+          : projectsData.filter(p => p.category === filter);
+
+        projectsGrid.innerHTML = filtered.map(proj => `
+          <article class="group flex flex-col justify-between p-6 rounded-2xl bg-white/85 dark:bg-slate-900/70 backdrop-blur-md border border-slate-200 dark:border-slate-800 hover:border-cyan-500/60 shadow-lg shadow-slate-900/5 dark:shadow-black/25 hover:shadow-cyan-500/10 hover:-translate-y-1.5 transition-all duration-300">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <div class="p-3 rounded-xl bg-gradient-to-br from-cyan-500/15 to-indigo-500/15 text-cyan-600 dark:text-cyan-400 border border-cyan-500/20">
+                  <i data-lucide="${proj.icon}" class="w-6 h-6"></i>
+                </div>
+                <span class="text-[11px] font-mono font-semibold text-indigo-600 dark:text-indigo-400 bg-indigo-500/10 px-2.5 py-1 rounded-lg">${proj.categoryLabel}</span>
+              </div>
+
+              <h3 class="text-xl font-bold text-slate-900 dark:text-white group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors">
+                ${proj.title}
+              </h3>
+
+              <p class="mt-2.5 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                ${proj.shortDesc}
+              </p>
+
+              <div class="flex flex-wrap gap-1.5 mt-4">
+                ${proj.tags.map(tag => `
+                  <span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-slate-100 dark:bg-slate-800/90 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">${tag}</span>
+                `).join('')}
+              </div>
+            </div>
+
+            <div class="mt-6 pt-4 border-t border-slate-200/80 dark:border-slate-800">
+              <button type="button" data-project-id="${proj.id}" class="open-modal-btn w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold text-cyan-700 dark:text-cyan-300 bg-cyan-500/10 hover:bg-cyan-500 hover:text-white border border-cyan-500/25 transition-all">
+                <span>View Case Study</span>
+                <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+              </button>
+            </div>
+          </article>
+        `).join('');
+
+        if (window.lucide) lucide.createIcons();
+
+        document.querySelectorAll('.open-modal-btn').forEach(btn => {
+          btn.addEventListener('click', () => openProjectModal(btn.dataset.projectId));
+        });
+      }
+      renderProjects('all');
+
+      document.querySelectorAll('.project-tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+          document.querySelectorAll('.project-tab').forEach(t => {
+            t.className = 'project-tab px-4 py-2.5 rounded-xl text-sm font-semibold bg-white dark:bg-slate-900/80 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:border-cyan-500/50 transition-all';
+          });
+          tab.className = 'project-tab px-4 py-2.5 rounded-xl text-sm font-semibold bg-gradient-to-r from-cyan-500 to-indigo-600 text-white shadow-md shadow-cyan-500/20 transition-all';
+          renderProjects(tab.dataset.projectFilter);
+        });
+      });
+
+      // Modal Controls
+      const modal = document.getElementById('project-modal');
+      function openProjectModal(projectId) {
+        const proj = projectsData.find(p => p.id === projectId);
+        if (!proj) return;
+
+        document.getElementById('modal-category').textContent = proj.categoryLabel;
+        document.getElementById('modal-title').textContent = proj.title;
+        document.getElementById('modal-summary').textContent = proj.fullSummary;
+        document.getElementById('modal-highlights').innerHTML = proj.highlights.map(item => `
+          <li class="flex items-start gap-2.5">
+            <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-cyan-500 shrink-0"></span>
+            <span>${item}</span>
+          </li>
+        `).join('');
+        document.getElementById('modal-tags').innerHTML = proj.tags.map(tag => `
+          <span class="px-3 py-1 rounded-lg text-xs font-mono bg-cyan-500/10 text-cyan-700 dark:text-cyan-300 border border-cyan-500/25">${tag}</span>
+        `).join('');
+
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        document.body.classList.add('overflow-hidden');
+      }
+
+      function closeProjectModal() {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+        document.body.classList.remove('overflow-hidden');
+      }
+
+      document.getElementById('modal-close-btn')?.addEventListener('click', closeProjectModal);
+      document.getElementById('modal-close-footer')?.addEventListener('click', closeProjectModal);
+      document.getElementById('modal-discuss-btn')?.addEventListener('click', closeProjectModal);
+      modal?.addEventListener('click', (e) => {
+        if (e.target === modal) closeProjectModal();
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !modal.classList.contains('hidden')) closeProjectModal();
+      });
+
+      /* =========================================================
+         11. INTERACTIVE CONTACT FORM (Static-Host Ready)
+      ========================================================== */
+      const contactForm = document.getElementById('contact-form');
+      contactForm?.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const name = document.getElementById('contact-name').value.trim();
+        const email = document.getElementById('contact-email').value.trim();
+        const message = document.getElementById('contact-message').value.trim();
+
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!name || !email || !message) {
+          showToast('Please fill in all fields before sending.', 'error');
+          return;
+        }
+        if (!emailPattern.test(email)) {
+          showToast('Please enter a valid email address.', 'error');
+          return;
+        }
+
+        const subject = encodeURIComponent(`Portfolio Inquiry from ${name}`);
+        const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`);
+        window.location.href = `mailto:iamkartiktomar01@gmail.com?subject=${subject}&body=${body}`;
+
+        showToast('Message ready! Opening your email client...');
+        contactForm.reset();
+      });
+
+      /* =========================================================
+         12. ANIMATED CONSTELLATION PARTICLE BACKGROUND
+      ========================================================== */
+      const canvas = document.getElementById('bg-canvas');
+      const ctx = canvas.getContext('2d');
+      let particles = [];
+      let width = 0;
+      let height = 0;
+
+      function resizeCanvas() {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+        const count = Math.min(Math.floor((width * height) / 18000), 75);
+        particles = Array.from({ length: count }, () => ({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          vx: (Math.random() - 0.5) * 0.45,
+          vy: (Math.random() - 0.5) * 0.45,
+          r: Math.random() * 1.8 + 0.8
+        }));
+      }
+
+      function animateParticles() {
+        ctx.clearRect(0, 0, width, height);
+        const isDark = htmlEl.classList.contains('dark');
+        const dotColor = isDark ? 'rgba(6, 182, 212, 0.55)' : 'rgba(99, 102, 241, 0.45)';
+        const lineRgb = isDark ? '99, 102, 241' : '6, 182, 212';
+
+        for (let i = 0; i < particles.length; i++) {
+          const p = particles[i];
+          p.x += p.vx;
+          p.y += p.vy;
+
+          if (p.x < 0 || p.x > width) p.vx *= -1;
+          if (p.y < 0 || p.y > height) p.vy *= -1;
+
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fillStyle = dotColor;
+          ctx.fill();
+
+          for (let j = i + 1; j < particles.length; j++) {
+            const p2 = particles[j];
+            const dx = p.x - p2.x;
+            const dy = p.y - p2.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < 130) {
+              ctx.beginPath();
+              ctx.strokeStyle = `rgba(${lineRgb}, ${(1 - dist / 130) * 0.18})`;
+              ctx.lineWidth = 1;
+              ctx.moveTo(p.x, p.y);
+              ctx.lineTo(p2.x, p2.y);
+              ctx.stroke();
+            }
+          }
+        }
+        requestAnimationFrame(animateParticles);
+      }
+
+      resizeCanvas();
+      window.addEventListener('resize', resizeCanvas);
+      animateParticles();
+    });
+  </script>
+</body>
+</html>
